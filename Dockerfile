@@ -22,7 +22,6 @@ RUN apt-get update && \
     
 # Copy authorized keys
 #COPY .ssh/authorized_keys /home/jenkins/.ssh/authorized_keys
-
 #RUN chown -R jenkins:jenkins /home/jenkins/.m2/
     #chown -R jenkins:jenkins /home/jenkins/.ssh/
 
