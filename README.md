@@ -1,1 +1,1 @@
-# docker-jenkins-slave-maven-lastest-java
+docker-jenkins-slave-java11-gradle-6.3
