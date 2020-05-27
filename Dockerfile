@@ -2,17 +2,23 @@ FROM ubuntu:18.04
 MAINTAINER Szczepan Kozioł <szczepankoziol@gmail.com>
 
 # Make sure the package repository is up to date.
-RUN apt-get update && \
-    apt-get -qy full-upgrade && \
-    apt-get install -qy git && \
+RUN apt-get update && apt-get -qy full-upgrade && apt-get -qy install \
+    git \
+    wget \
+    unzip \
+    apt-transport-https \
+    build-essential \
 # Install a basic SSH server
-    apt-get install -qy openssh-server && \
+    openssh-server \
+# Install lastest JDK
+    default-jdk && \
+# Install Gradle 6.3
+    mkdir /opt/gradle && \
+    wget https://downloads.gradle-dn.com/distributions/gradle-6.3-bin.zip && \
+    unzip -d /opt/gradle gradle-6.3-bin.zip && \
+    export PATH=$PATH:/opt/gradle/gradle-6.3/bin && \
     sed -i 's|session    required     pam_loginuid.so|session    optional     pam_loginuid.so|g' /etc/pam.d/sshd && \
     mkdir -p /var/run/sshd && \
-# Install lastest JDK
-    apt-get install -qy default-jdk && \
-# Install maven
-    apt-get install -qy maven && \ 
 # Cleanup old packages
     apt-get -qy autoremove && \
 # Add user jenkins to the image
